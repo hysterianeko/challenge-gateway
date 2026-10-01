@@ -1,0 +1,42 @@
+services:
+  challenge:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ${CHALLENGE_IMAGE:-challenge-gateway:latest}
+    container_name: challenge
+    restart: unless-stopped
+    environment:
+      TZ: ${TZ:-Asia/Shanghai}
+      CLIENTT_KEY: ${CLIENTT_KEY}
+      DOMAIN: ${DOMAIN:-challenge.cool.pp.ua}
+      ACME_EMAIL: ${ACME_EMAIL:-admin@challenge.cool.pp.ua}
+      ENABLE_TLS: ${ENABLE_TLS:-true}
+      CLOUDFLYER_URL: http://127.0.0.1:3000
+      CLOUDFLYER_MAX_TASKS: ${CLOUDFLYER_MAX_TASKS:-1}
+      CLOUDFLYER_TIMEOUT: ${CLOUDFLYER_TIMEOUT:-120}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "${CLOUDFLYER_BIND:-127.0.0.1}:3000:3000"
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+    shm_size: "256mb"
+    mem_limit: 2g
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/health', timeout=3)",
+        ]
+      interval: 15s
+      timeout: 5s
+      retries: 12
+      start_period: 50s
+
+volumes:
+  caddy_data:
+  caddy_config:

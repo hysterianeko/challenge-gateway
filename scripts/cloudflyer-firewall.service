@@ -1,0 +1,14 @@
+[Unit]
+Description=Restrict Cloudflyer port to allowed client IPs
+After=docker.service network-online.target
+Wants=network-online.target
+Requires=docker.service
+
+[Service]
+Type=oneshot
+EnvironmentFile=-/opt/cloudflyer-stack/.env
+ExecStart=/opt/cloudflyer-stack/scripts/firewall.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
