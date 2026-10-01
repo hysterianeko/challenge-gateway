@@ -1,9 +1,6 @@
 services:
   challenge:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: ${CHALLENGE_IMAGE:-challenge-gateway:latest}
+    image: ${CHALLENGE_IMAGE:-circling0635/challenge-gateway:2026.10.02}
     container_name: challenge
     restart: unless-stopped
     environment:
