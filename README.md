@@ -49,7 +49,7 @@ curl -s https://challenge.cool.pp.ua/health
 默认 Compose 使用已经发布的 Docker Hub 镜像：
 
 ```text
-circling0635/challenge-gateway:2026.10.02
+circling0635/challenge-gateway:2026.10.08
 ```
 
 查看状态和日志：
@@ -84,6 +84,8 @@ docker build -t challenge-gateway:local .
 | `CLOUDFLYER_MAX_TASKS` | 否 | 同时运行的底层求解任务数，默认 `1` |
 | `CLOUDFLYER_TIMEOUT` | 否 | 底层任务超时时间，单位为秒 |
 | `CHALLENGE_IMAGE` | 否 | Docker Hub 镜像名，默认使用固定版本 |
+| `OCR_ENSEMBLE_ENABLED` | 否 | 对 EUserv 验证码启用多模型候选，默认 `true` |
+| `OCR_ENSEMBLE_MAX_ALTERNATIVES` | 否 | 每张 EUserv 验证码最多返回的备选结果数，默认 `3` |
 
 生成 key：
 

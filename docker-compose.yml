@@ -1,6 +1,6 @@
 services:
   challenge:
-    image: ${CHALLENGE_IMAGE:-circling0635/challenge-gateway:2026.10.02}
+    image: ${CHALLENGE_IMAGE:-circling0635/challenge-gateway:2026.10.08}
     container_name: challenge
     restart: unless-stopped
     environment:
@@ -12,6 +12,8 @@ services:
       CLOUDFLYER_URL: http://127.0.0.1:3000
       CLOUDFLYER_MAX_TASKS: ${CLOUDFLYER_MAX_TASKS:-1}
       CLOUDFLYER_TIMEOUT: ${CLOUDFLYER_TIMEOUT:-120}
+      OCR_ENSEMBLE_ENABLED: ${OCR_ENSEMBLE_ENABLED:-true}
+      OCR_ENSEMBLE_MAX_ALTERNATIVES: ${OCR_ENSEMBLE_MAX_ALTERNATIVES:-3}
     ports:
       - "80:80"
       - "443:443"
